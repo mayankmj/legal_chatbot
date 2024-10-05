@@ -17,7 +17,7 @@ const Chat = ({ user }) => {
   });
 
   const Polly = new AWS.Polly();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(window.matchMedia('(min-width: 1020px)').matches);
   const [userInput, setUserInput] = useState("");
   const [userOut, setUserOut] = useState("");
   const [queryPairs, setQueryPairs] = useState([]);
@@ -37,6 +37,15 @@ const Chat = ({ user }) => {
 
   const { transcript, resetTranscript } = useSpeechRecognition();
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1020px)');
+    const handleChange = (e) => setSidebarOpen(e.matches);
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+  
   // Listening to Speech Input
   const startListening = () => {
     setIsListening(true);
@@ -80,6 +89,7 @@ const Chat = ({ user }) => {
     }
   };
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
   const handleStopSpeaking = () => {
     setIsSpeaking(false);
     audioPlayer.pause();
