@@ -168,7 +168,7 @@ const Chat = ({ user }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-auto bg-indigo-900 text-white text-base lg:text-lg">
+    <div className="flex flex-col lg:flex-row min-h-screen h-auto bg-indigo-900 text-white text-base lg:text-lg">
       {/* Sidebar for small screens and fixed for larger screens */}
       <div
         className={`lg:w-1/4 w-full lg:relative absolute inset-y-0 left-0 lg:p-4 p-2 bg-white lg:shadow-none shadow-2xl z-50 lg:z-0 transform ${
